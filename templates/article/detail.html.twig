@@ -7,16 +7,14 @@
             <h3 class="pb-3 mb-4 font-italic border-bottom">
                 From the Firehose
             </h3>
-            {% for article in articles %}
-                <a href="{{ path('article_detail', {slug: article.slug}) }}">
-                    <div class="blog-post">
-                        <h2 class="blog-post-title">{{ article.title }}</h2>
-                        <p class="blog-post-meta">{{ article.createdAt|ago }}<a href="#">{{ article.author }}</a></p>
+                <div class="blog-post">
+                    <h2 class="blog-post-title">{{ article.title }}</h2>
+                    <p class="blog-post-meta">{{ article.createdAt|ago }}<a href="#">{{ article.author }}</a></p>
 
-                        {{ article.text }}
-                    </div><!-- /.blog-post -->
-                </a>
-            {% endfor %}
+                    {{ article.text }}
+                </div><!-- /.blog-post -->
+
+
 
 
             <nav class="blog-pagination">

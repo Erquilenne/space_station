@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,6 +27,16 @@ class ArticleController extends AbstractController
         $articles = $repository->findAll();
         return $this->render('article/homepage.html.twig', [
             'articles' => $articles,
+        ]);
+    }
+
+    /**
+     * @Route("/news/{slug}", name="article_detail")
+     */
+    public function detail(Article $article)
+    {
+        return $this->render('article/detail.html.twig', [
+            'article' => $article,
         ]);
     }
 }
