@@ -18,8 +18,8 @@ class ArticleFixture extends BaseFixtures
            $article->setTitle(substr($this->faker->text, 0,20))
            ->setAuthor($this->faker->name)
            ->setText($this->faker->text)
-           ->setCreatedAt($this->faker->dateTime)
-           ->setUpdatedAt($this->faker->dateTime);
+           ->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'))
+           ;
 
            return $article;
         });
