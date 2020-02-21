@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleFormType;
 use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
@@ -31,7 +34,33 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/news/{slug}", name="article_detail")
+     * @Route("/article/new", name="article_new")
+     */
+    public function new(EntityManagerInterface $em, Request $request)
+    {
+        $form = $this->createForm(ArticleFormType::class);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            /** @var Article $article */
+            $article = $form->getData();
+
+            $em->persist($article);
+            $em->flush();
+
+            $this->addFlash('success', 'Пост создан!');
+
+            return $this->redirectToRoute('app_homepage');
+        }
+
+        return $this->render('article/new.html.twig', [
+            'articleForm' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/article/{slug}", name="article_detail")
      */
     public function detail(Article $article)
     {
@@ -39,4 +68,8 @@ class ArticleController extends AbstractController
             'article' => $article,
         ]);
     }
+
+
+
+
 }

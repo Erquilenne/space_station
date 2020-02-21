@@ -1,0 +1,24 @@
+
+{% extends 'base.html.twig' %}
+{% block body %}
+<main role="main" class="container">
+    <div class="row">
+        <div class="col-md-8 blog-main">
+            <h3 class="pb-3 mb-4 font-italic border-bottom">
+                Создание новости.
+            </h3>
+            {{ form(articleForm) }}
+{#                <div class="blog-post">#}
+{#                    {{ form_start(articleForm) }}#}
+{#                        {{ form_row(articleForm.title) }}#}
+{#                        {{ form_row(articleForm.text) }}#}
+{#                        {{ form_row(articleForm.author) }}#}
+{#                    {{ form_end(articleForm) }}#}
+{#                </div>#}
+{#            <button type="submit" class="btn btn-primary">{{ button_text: 'Создать!' }}</button>#}
+        </div>
+        </aside>
+    </div>
+
+</main>
+{% endblock %}
