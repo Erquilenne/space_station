@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
 class Comment
 {
+    use TimestampableEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -27,14 +29,10 @@ class Comment
     private $text;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Article", inversedBy="comments")
      */
-    private $createdAt;
+    private $article;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -65,27 +63,16 @@ class Comment
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getArticle(): ?Article
     {
-        return $this->createdAt;
+        return $this->article;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setArticle(?Article $article): self
     {
-        $this->createdAt = $createdAt;
+        $this->article = $article;
 
         return $this;
     }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
+    
 }
