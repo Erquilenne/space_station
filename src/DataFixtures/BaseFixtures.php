@@ -15,6 +15,8 @@ abstract class BaseFixtures extends Fixture
     /** @var Generator */
     protected $faker;
 
+    private $referencesIndex = [];
+
     abstract protected function loadData(ObjectManager $manager);
 
     public function load(ObjectManager $manager)
@@ -29,9 +31,10 @@ abstract class BaseFixtures extends Fixture
 
     /**
      * @param int $count
+     * @param string $groupName
      * @param callable $factory
      */
-    public function createMany (int $count, callable $factory)
+    protected function createMany (int $count, string $groupName, callable $factory)
     {
         for($i = 0; $i < $count; $i++) {
             $entity = $factory($i);
@@ -42,6 +45,8 @@ abstract class BaseFixtures extends Fixture
             }
 
             $this->manager->persist($entity);
+
+            $this->addReference(sprintf('%s_%d', $groupName, $i), $entity);
         }
 
     }
