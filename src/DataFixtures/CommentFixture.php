@@ -19,10 +19,10 @@ class CommentFixture extends BaseFixtures
                 $article = $this->getReference(sprintf('article_%s', rand(0, 9)));
 
                 $comment = new Comment();
-                $comment->setAuthor($article->getAuthor())
+                $comment->setAuthor($this->faker->name)
                     ->setText($this->faker->text)
                     ->setArticle($article)
-                ->setAuthor($article->getAuthor());
+                ;
                 $manager->persist($comment);
             }
 
